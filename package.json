@@ -1,7 +1,7 @@
 {
   "name": "real-time-object-detection-web",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "yarn dev",
     "build": "yarn build",
