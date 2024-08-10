@@ -1,12 +1,12 @@
 {
   "name": "real-time-object-detection-web",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "scripts": {
-    "dev": "yarn dev",
-    "build": "yarn build",
-    "start": "yarn start",
-    "lint": "yarn lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.1.1",
