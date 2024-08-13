@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { runModelUtils } from "../../utils";
 
-const RES_TO_MODEL: [number[], string, string][] = [
+const RES_TO_MODEL: [number[], string][] = [
   [[256, 256], "Neuron Q-N1"],
   [[320, 320], "Neuron Q-N2"],
   [[640, 640], "Neuron Q-N3"],
