@@ -8,17 +8,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { runModelUtils } from "../../utils";
 
-const RES_TO_MODEL: [number[], string,string][] = [
-  [[256,256], "yolov7-tiny_256x256.onnx","Neuron Q-N1"],
-  [[320, 320], "yolov7-tiny_320x320.onnx","Neuron Q-N2"],
-  [[640, 640], "yolov7-tiny_640x640.onnx","Neuron Q-N3"],
+const RES_TO_MODEL: [number[], string, string][] = [
+  [[256, 256], "Neuron Q-N1"],
+  [[320, 320], "Neuron Q-N2"],
+  [[640, 640], "Neuron Q-N3"],
 ];
 
 const Yolo = (props: any) => {
   const [modelResolution, setModelResolution] = useState<number[]>(
     RES_TO_MODEL[0][0]
   );
-  const [modelName, setModelName] = useState<string>(RES_TO_MODEL[0][2]);
+  const [modelName, setModelName] = useState<string>(RES_TO_MODEL[0][1]);
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
