@@ -9,9 +9,9 @@ import { useEffect } from "react";
 import { runModelUtils } from "../../utils";
 
 const RES_TO_MODEL: [number[], string,string][] = [
-  [[256,256], "yolov7-tiny_256x256.onnx","Neuron-Q-N1"],
-  [[320, 320], "yolov7-tiny_320x320.onnx","Neuron-Q-N2"],
-  [[640, 640], "yolov7-tiny_640x640.onnx","Neuron-Q-N3"],
+  [[256,256], "yolov7-tiny_256x256.onnx","Neuron Q-N1"],
+  [[320, 320], "yolov7-tiny_320x320.onnx","Neuron Q-N2"],
+  [[640, 640], "yolov7-tiny_640x640.onnx","Neuron Q-N3"],
 ];
 
 const Yolo = (props: any) => {
