@@ -170,6 +170,19 @@ const WebcamComponent = (props: any) => {
             style={{ zIndex: 10 }} // Ensure it appears over the webcam feed
           />
         )}
+        {!liveDetection.current && (
+          <div
+            className="absolute text-white bg-black bg-opacity-50 p-2 rounded-md"
+            style={{
+              top: 10,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 15,
+            }}
+          >
+            Click "Live Detection" to start inference
+          </div>
+        )}
       </div>
       <div className="flex flex-col justify-center items-center">
         <div className="flex gap-1 flex-row flex-wrap justify-center items-center m-5">
