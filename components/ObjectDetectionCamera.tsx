@@ -9,7 +9,7 @@ const WebcamComponent = (props: any) => {
   const webcamRef = useRef<Webcam>(null);
   const videoCanvasRef = useRef<HTMLCanvasElement>(null);
   const liveDetection = useRef<boolean>(false);
-
+  const [isInference, setIsInference] = useState<boolean>(false);
   const [facingMode, setFacingMode] = useState<string>("environment");
   const originalSize = useRef<number[]>([0, 0]);
   const MODEL_DISPLAY_NAMES: { [key: string]: string } = {
@@ -57,9 +57,11 @@ const WebcamComponent = (props: any) => {
   const runLiveDetection = async () => {
     if (liveDetection.current) {
       liveDetection.current = false;
+      setIsInference(false);
       return;
     }
     liveDetection.current = true;
+    setIsInference(true);
     while (liveDetection.current) {
       const startTime = Date.now();
       const ctx = capture();
@@ -170,7 +172,7 @@ const WebcamComponent = (props: any) => {
             style={{ zIndex: 10 }} // Ensure it appears over the webcam feed
           />
         )}
-        {!liveDetection.current && (
+        {!isInference && (
           <div
             className="absolute text-white bg-black bg-opacity-50 p-2 rounded-md"
             style={{
