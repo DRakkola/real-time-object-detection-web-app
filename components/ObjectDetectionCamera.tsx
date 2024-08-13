@@ -97,6 +97,7 @@ const WebcamComponent = (props: any) => {
     var context = videoCanvasRef.current!.getContext("2d")!;
     context.clearRect(0, 0, originalSize.current[0], originalSize.current[1]);
     liveDetection.current = false;
+    setIsInference(liveDetection.current);
   };
 
   const [SSR, setSSR] = useState<Boolean>(true);
@@ -204,7 +205,7 @@ const WebcamComponent = (props: any) => {
                 } else {
                   runLiveDetection(); // Start live detection
                 }
-                setIsInference(liveDetection.current); // Update the inference state
+                // Update the inference state
               }}
               // Styling the button, with hover effect and conditional classes
               className={`
