@@ -20,13 +20,16 @@ const Yolo = (props: any) => {
   );
   const [modelName, setModelName] = useState<string>(RES_TO_MODEL[0][1]);
   const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getSession = async () => {
+      setLoading(true); // Set loading to true when the model is being loaded
       const session = await runModelUtils.createModelCpu(
         `./_next/static/chunks/pages/${modelName}`
       );
       setSession(session);
+      setLoading(false); // Set loading to false when the model is ready
     };
     getSession();
   }, [modelName]);
@@ -196,6 +199,7 @@ const Yolo = (props: any) => {
       session={session}
       changeModelResolution={changeModelResolution}
       modelName={modelName}
+      isLoading={isLoading}
     />
   );
 };

@@ -175,6 +175,7 @@ const WebcamComponent = (props: any) => {
               Capture Photo
             </button>
             <button
+              disabled={isLoading}
               onClick={async () => {
                 if (liveDetection.current) {
                   liveDetection.current = false;
@@ -219,7 +220,12 @@ const WebcamComponent = (props: any) => {
             </button>
           </div>
         </div>
-        <div>Using {MODEL_DISPLAY_NAMES[props.modelName]}</div>
+        <div>
+          Using{" "}
+          {props.isLoading
+            ? "Model loading"
+            : MODEL_DISPLAY_NAMES[props.modelName]}
+        </div>
         <div className="flex gap-3 flex-row flex-wrap justify-between items-center px-5 w-full">
           <div>
             {"Model Inference Time: " + inferenceTime.toFixed() + "ms"}
