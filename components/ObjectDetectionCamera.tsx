@@ -151,15 +151,19 @@ const WebcamComponent = (props: any) => {
           }}
           forceScreenshotSourceSize={true}
         />
-        <canvas
-          id="cv1"
-          ref={videoCanvasRef}
-          style={{
-            position: "absolute",
-            zIndex: 10,
-            backgroundColor: "rgba(0,0,0,0)",
-          }}
-        ></canvas>
+        {props.isLoading ? (
+          <canvas
+            id="cv1"
+            ref={videoCanvasRef}
+            style={{
+              position: "absolute",
+              zIndex: 10,
+              backgroundColor: "rgba(0,0,0,0)",
+            }}
+          ></canvas>
+        ) : (
+          <img src="../public/neuron-q.png" className="animate-pulse" />
+        )}
       </div>
       <div className="flex flex-col justify-center items-center">
         <div className="flex gap-1 flex-row flex-wrap justify-center items-center m-5">
