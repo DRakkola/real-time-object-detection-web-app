@@ -151,18 +151,22 @@ const WebcamComponent = (props: any) => {
           }}
           forceScreenshotSourceSize={true}
         />
-        {props.isLoading ? (
-          <canvas
-            id="cv1"
-            ref={videoCanvasRef}
-            style={{
-              position: "absolute",
-              zIndex: 10,
-              backgroundColor: "rgba(0,0,0,0)",
-            }}
-          ></canvas>
-        ) : (
-          <img src="../public/neuron-q.png" className="animate-pulse" />
+        <canvas
+          id="cv1"
+          ref={videoCanvasRef}
+          style={{
+            position: "absolute",
+            zIndex: 10,
+            backgroundColor: "rgba(0,0,0,0)",
+            display: props.isLoading ? "none" : "block", // Hide the canvas when loading
+          }}
+        ></canvas>
+        {props.isLoading && (
+          <img
+            src="/neuron-q.png" // Ensure the path is correct
+            className="animate-pulse absolute"
+            style={{ zIndex: 10 }} // Ensure it appears over the webcam feed
+          />
         )}
       </div>
       <div className="flex flex-col justify-center items-center">
