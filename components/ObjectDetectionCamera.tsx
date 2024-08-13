@@ -204,6 +204,7 @@ const WebcamComponent = (props: any) => {
                   reset();
                 } else {
                   runLiveDetection(); // Start live detection
+                  setIsInference(liveDetection.current);
                 }
                 // Update the inference state
               }}
