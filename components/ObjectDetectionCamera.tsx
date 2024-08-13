@@ -175,7 +175,7 @@ const WebcamComponent = (props: any) => {
               Capture Photo
             </button>
             <button
-              disabled={isLoading}
+              disabled={props.isLoading}
               onClick={async () => {
                 if (liveDetection.current) {
                   liveDetection.current = false;
