@@ -14,8 +14,8 @@ const WebcamComponent = (props: any) => {
   const originalSize = useRef<number[]>([0, 0]);
   const MODEL_DISPLAY_NAMES: { [key: string]: string } = {
     "yolov7-tiny_256x256.onnx": "neuron Q-N1",
-    "yolov7-tiny_320x320.onnx": "Model 320x320",
-    "yolov7-tiny_640x640.onnx": "Model 640x640",
+    "yolov7-tiny_320x320.onnx": "neuron Q-N2",
+    "yolov7-tiny_640x640.onnx": "neuron Q-N3",
   };
   const capture = () => {
     const canvas = videoCanvasRef.current!;
@@ -169,6 +169,19 @@ const WebcamComponent = (props: any) => {
             className="animate-pulse absolute"
             style={{ zIndex: 10 }} // Ensure it appears over the webcam feed
           />
+        )}
+        {!props.isLoading && !liveDetection.current && (
+          <div
+            className="absolute text-white bg-black bg-opacity-50 p-2 rounded-md"
+            style={{
+              top: 10,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 15,
+            }}
+          >
+            Click "Live Detection" to start inference
+          </div>
         )}
       </div>
       <div className="flex flex-col justify-center items-center">
