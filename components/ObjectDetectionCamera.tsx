@@ -19,7 +19,6 @@ const WebcamComponent = (props: any) => {
     "yolov7-tiny_320x320.onnx": "neuron Q-N2",
     "yolov7-tiny_640x640.onnx": "neuron Q-N",
   };
-
   const capture = () => {
     const canvas = videoCanvasRef.current!;
     const context = canvas.getContext("2d", {
@@ -60,6 +59,7 @@ const WebcamComponent = (props: any) => {
   const runLiveDetection = async () => {
     if (liveDetection.current) {
       liveDetection.current = false;
+
       return;
     }
     liveDetection.current = true;
@@ -94,7 +94,7 @@ const WebcamComponent = (props: any) => {
   };
 
   const reset = async () => {
-    const context = videoCanvasRef.current!.getContext("2d")!;
+    var context = videoCanvasRef.current!.getContext("2d")!;
     context.clearRect(0, 0, originalSize.current[0], originalSize.current[1]);
     liveDetection.current = false;
     setIsInference(liveDetection.current);
@@ -103,19 +103,14 @@ const WebcamComponent = (props: any) => {
   const [SSR, setSSR] = useState<Boolean>(true);
 
   const setWebcamCanvasOverlaySize = () => {
-    const webcamElement = webcamRef.current?.video;
-    const canvasElement = videoCanvasRef.current;
-
-    if (webcamElement && canvasElement) {
-      const width = webcamElement.offsetWidth;
-      const height = webcamElement.offsetHeight;
-
-      // Set both canvases to the same size
-      canvasElement.width = width;
-      canvasElement.height = height;
-
-      // Optional: Update any other related elements if needed
-    }
+    const element = webcamRef.current!.video!;
+    if (!element) return;
+    var w = element.offsetWidth;
+    var h = element.offsetHeight;
+    var cv = videoCanvasRef.current;
+    if (!cv) return;
+    cv.width = w;
+    cv.height = h;
   };
 
   // close camera when browser tab is minimized
@@ -129,30 +124,14 @@ const WebcamComponent = (props: any) => {
     };
     setSSR(document.hidden);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
   }, []);
-
-  useLayoutEffect(() => {
-    setWebcamCanvasOverlaySize();
-  }, [facingMode, props.modelName]);
-
-  // Update the canvas size when changing model resolution
-  const changeModelResolution = () => {
-    // Your existing model resolution change logic
-
-    // Ensure canvas size is updated after model change
-    setWebcamCanvasOverlaySize();
-  };
 
   if (SSR) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="flex flex-row flex-wrap justify-evenly align-center w-full">
+    <div className="flex flex-row flex-wrap  justify-evenly align-center w-full">
       <div
         id="webcam-container"
         className="flex items-center justify-center webcam-container"
@@ -204,7 +183,7 @@ const WebcamComponent = (props: any) => {
       <div className="flex flex-col justify-center items-center">
         <div className="flex gap-1 flex-row flex-wrap justify-center items-center m-5">
           <div className="flex gap-1 justify-center items-center items-stretch">
-            <button
+            {/* <button
               onClick={async () => {
                 const startTime = Date.now();
                 await processImage();
@@ -213,7 +192,7 @@ const WebcamComponent = (props: any) => {
               className="p-2 border-dashed border-2 rounded-xl hover:translate-y-1 "
             >
               Capture Photo
-            </button>
+            </button> */}
             <button
               // Disable the button when the model is loading
               disabled={props.isLoading}
@@ -226,6 +205,7 @@ const WebcamComponent = (props: any) => {
                   runLiveDetection(); // Start live detection
                   setIsInference(liveDetection.current);
                 }
+                // Update the inference state
               }}
               // Styling the button, with hover effect and conditional classes
               className={`
@@ -246,15 +226,15 @@ const WebcamComponent = (props: any) => {
             >
               Switch Camera
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 reset();
-                changeModelResolution(); // Update canvas size after changing model
+                props.changeModelResolution();
               }}
               className="p-2  border-dashed border-2 rounded-xl hover:translate-y-1 "
             >
               Change Model
-            </button>
+            </button> */}
             <button
               onClick={reset}
               className="p-2  border-dashed border-2 rounded-xl hover:translate-y-1 "
@@ -263,17 +243,31 @@ const WebcamComponent = (props: any) => {
             </button>
           </div>
         </div>
-        <div>
+        {/* <div>
           Using{" "}
           {props.isLoading
             ? "Model loading"
             : MODEL_DISPLAY_NAMES[props.modelName]}
-        </div>
+        </div> */}
         <div className="flex gap-3 flex-row flex-wrap justify-between items-center px-5 w-full">
           <div>
-            {"Model Inference Time: " + inferenceTime.toFixed(2) + "ms"}
+            {"Model Inference Time: " + inferenceTime.toFixed() + "ms"}
+            <br />
+            {"Total Time: " + totalTime.toFixed() + "ms"}
+            <br />
+            {"Overhead Time: +" + (totalTime - inferenceTime).toFixed(2) + "ms"}
           </div>
-          <div>{"Total Time: " + totalTime.toFixed(2) + "ms"}</div>
+          <div>
+            <div>
+              {"Model FPS: " + (1000 / inferenceTime).toFixed(2) + "fps"}
+            </div>
+            <div>{"Total FPS: " + (1000 / totalTime).toFixed(2) + "fps"}</div>
+            <div>
+              {"Overhead FPS: " +
+                (1000 * (1 / totalTime - 1 / inferenceTime)).toFixed(2) +
+                "fps"}
+            </div>
+          </div>
         </div>
       </div>
     </div>
