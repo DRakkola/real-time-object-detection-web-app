@@ -9,7 +9,9 @@ const WebcamComponent = (props: any) => {
   const webcamRef = useRef<Webcam>(null);
   const videoCanvasRef = useRef<HTMLCanvasElement>(null);
   const liveDetection = useRef<boolean>(false);
-  const [isInference, setIsInference] = useState<boolean>(false);
+  const [isInference, setIsInference] = useState<boolean>(
+    liveDetection.current
+  );
   const [facingMode, setFacingMode] = useState<string>("environment");
   const originalSize = useRef<number[]>([0, 0]);
   const MODEL_DISPLAY_NAMES: { [key: string]: string } = {
@@ -57,11 +59,11 @@ const WebcamComponent = (props: any) => {
   const runLiveDetection = async () => {
     if (liveDetection.current) {
       liveDetection.current = false;
-      setIsInference(false);
+
       return;
     }
     liveDetection.current = true;
-    setIsInference(true);
+
     while (liveDetection.current) {
       const startTime = Date.now();
       const ctx = capture();
@@ -192,20 +194,22 @@ const WebcamComponent = (props: any) => {
               Capture Photo
             </button>
             <button
+              // Disable the button when the model is loading
               disabled={props.isLoading}
+              // Handle the button click
               onClick={async () => {
                 if (liveDetection.current) {
-                  liveDetection.current = false;
+                  liveDetection.current = false; // Stop live detection
                 } else {
-                  runLiveDetection();
+                  runLiveDetection(); // Start live detection
                 }
+                setIsInference(liveDetection.current); // Update the inference state
               }}
-              //on hover, shift the button up
+              // Styling the button, with hover effect and conditional classes
               className={`
-              p-2  border-dashed border-2 rounded-xl hover:translate-y-1 
-              ${liveDetection.current ? "bg-white text-black" : ""}
-              
-              `}
+    p-2 border-dashed border-2 rounded-xl hover:translate-y-1 
+    ${liveDetection.current ? "bg-white text-black" : ""}
+  `}
             >
               Live Detection
             </button>
