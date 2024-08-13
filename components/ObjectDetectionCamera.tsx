@@ -173,16 +173,8 @@ const WebcamComponent = (props: any) => {
           />
         )}
         {!isInference && (
-          <div
-            className="absolute text-white bg-black bg-opacity-50 p-2 rounded-md"
-            style={{
-              top: 10,
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 15,
-            }}
-          >
-            Click "Live Detection" to start inference
+          <div className="absolute text-white bg-black bg-opacity-50 p-2 rounded-md">
+            Click Live Detection to start inference
           </div>
         )}
       </div>
