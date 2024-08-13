@@ -164,7 +164,6 @@ const WebcamComponent = (props: any) => {
               position: "absolute",
               zIndex: 10,
               backgroundColor: "rgba(0,0,0,0)",
-              display: props.isLoading ? "none" : "block", // Hide the canvas when loading
             }}
           ></canvas>
         )}
