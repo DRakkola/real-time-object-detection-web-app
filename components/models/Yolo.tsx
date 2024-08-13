@@ -199,7 +199,7 @@ const Yolo = (props: any) => {
       session={session}
       changeModelResolution={changeModelResolution}
       modelName={modelName}
-      isLoading={isLoading}
+      isLoading={loading}
     />
   );
 };
