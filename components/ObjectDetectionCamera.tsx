@@ -12,7 +12,11 @@ const WebcamComponent = (props: any) => {
 
   const [facingMode, setFacingMode] = useState<string>("environment");
   const originalSize = useRef<number[]>([0, 0]);
-
+  const MODEL_DISPLAY_NAMES: { [key: string]: string } = {
+    "yolov7-tiny_256x256.onnx": "neuron Q-N1",
+    "yolov7-tiny_320x320.onnx": "Model 320x320",
+    "yolov7-tiny_640x640.onnx": "Model 640x640",
+  };
   const capture = () => {
     const canvas = videoCanvasRef.current!;
     const context = canvas.getContext("2d", {
@@ -215,7 +219,7 @@ const WebcamComponent = (props: any) => {
             </button>
           </div>
         </div>
-        <div>Using {props.modelName}</div>
+        <div>Using {MODEL_DISPLAY_NAMES[props.modelName]}</div>
         <div className="flex gap-3 flex-row flex-wrap justify-between items-center px-5 w-full">
           <div>
             {"Model Inference Time: " + inferenceTime.toFixed() + "ms"}
