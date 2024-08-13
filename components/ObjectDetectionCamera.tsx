@@ -200,6 +200,7 @@ const WebcamComponent = (props: any) => {
               onClick={async () => {
                 if (liveDetection.current) {
                   liveDetection.current = false; // Stop live detection
+                  reset();
                 } else {
                   runLiveDetection(); // Start live detection
                 }
