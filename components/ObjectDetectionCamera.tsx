@@ -15,6 +15,7 @@ const WebcamComponent = (props: any) => {
   const [facingMode, setFacingMode] = useState<string>("environment");
   const originalSize = useRef<number[]>([0, 0]);
   const MODEL_DISPLAY_NAMES: { [key: string]: string } = {
+    "FallDetection85.onnx": "neuron Q-Fall",
     "yolov7-tiny_256x256.onnx": "neuron Q-N1",
     "yolov7-tiny_320x320.onnx": "neuron Q-N2",
     "yolov7-tiny_640x640.onnx": "neuron Q-N",

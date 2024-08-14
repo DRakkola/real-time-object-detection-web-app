@@ -81,3 +81,8 @@ export const yoloClasses: string[] = [
   "hair drier",
   "toothbrush",
 ];
+export const yolofallClasses: string[] = [
+  "Fall Dectected",
+  "Walking",
+  "Sitting",
+];

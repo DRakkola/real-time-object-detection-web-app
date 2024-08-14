@@ -3,12 +3,13 @@ import { Tensor } from "onnxruntime-web";
 import ops from "ndarray-ops";
 import ObjectDetectionCamera from "../ObjectDetectionCamera";
 import { round } from "lodash";
-import { yoloClasses } from "../../data/yolo_classes";
+import { yoloClasses, yolofallClasses } from "../../data/yolo_classes";
 import { useState } from "react";
 import { useEffect } from "react";
 import { runModelUtils } from "../../utils";
 
 const RES_TO_MODEL: [number[], string][] = [
+  [[244, 244], "FallDetection85.onnx"],
   [[256, 256], "yolov7-tiny_256x256.onnx"],
   [[320, 320], "yolov7-tiny_320x320.onnx"],
   [[640, 640], "yolov7-tiny_640x640.onnx"],
@@ -169,8 +170,8 @@ const Yolo = (props: any) => {
 
       [score] = [score].map((x: any) => round(x * 100, 1));
       const label =
-        yoloClasses[cls_id].toString()[0].toUpperCase() +
-        yoloClasses[cls_id].toString().substring(1) +
+        yolofallClasses[cls_id].toString()[0].toUpperCase() +
+        yolofallClasses[cls_id].toString().substring(1) +
         " " +
         score.toString() +
         "%";
