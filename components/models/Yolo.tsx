@@ -169,6 +169,8 @@ const Yolo = (props: any) => {
       ].map((x: any) => round(x));
 
       [score] = [score].map((x: any) => round(x * 100, 1));
+      console.log(score);
+
       const label =
         yolofallClasses[cls_id].toString()[0].toUpperCase() +
         yolofallClasses[cls_id].toString().substring(1) +
